@@ -2,13 +2,17 @@
 
 		FEATURES:
 
-- Add music and animations for screwing with the end user
-- Configurator and pen drive installer, an application that installs the drunkPC application in a usb drive and creates a .bat file for quick execution
-- Emergency key for stopping the application
-- Make more mighty (PTBR) sentences for screwing with the end user
-- Change the desktop background temporarily
+- [x] Add brazilian funk music for screwing with the end user
+- [ ] Add animations for screwing with the end user
+- [ ] Configurator and pen drive installer, an application that installs the drunkPC application in a usb drive and creates a .bat file for quick execution
+- [ ] Emergency key for stopping the application
+- [ ] Make more mighty (PTBR) sentences for screwing with the end user
+- [ ] Change the desktop background temporarily
+- [x] Minimize all other windows for screwing with the end user
+- [x] Make a Beagle appear for screwing with the end user
+- [x] Make the program run when the removable media disconnects suddenly
 
 
 		BUGFIXES:
 
-- Fix the message boxes, they're not showing up properly when notepad.exe is launched
+- [ ]Fix the message boxes, they're not showing up properly when notepad.exe is launched
