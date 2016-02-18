@@ -1,0 +1,14 @@
+===== DrunkPC Feature And Bugfix Plan List =====
+
+		FEATURES:
+
+- Add music and animations for screwing with the end user
+- Configurator and pen drive installer, an application that installs the drunkPC application in a usb drive and creates a .bat file for quick execution
+- Emergency key for stopping the application
+- Make more mighty (PTBR) sentences for screwing with the end user
+- Change the desktop background temporarily
+
+
+		BUGFIXES:
+
+- Fix the message boxes, they're not showing up properly when notepad.exe is launched
