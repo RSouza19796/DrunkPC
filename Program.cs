@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using System.Media;
+using System.IO;
 
 //
 //  Application Name: Drunk PC
@@ -21,23 +22,22 @@ using System.Media;
 
 
 namespace DrunkPC
-{
+{  
+
     class Program
-    {
+    {      
         public static Random _random = new Random();
-
-        public static int _startupDelaySeconds = 0;
-        public static int _totalDurationSeconds = 10;
-
+        public static int _startupDelaySeconds = 10;
+        public static int _totalDurationSeconds = 10;            
+        
         /// <summary>
         /// Entry point for prank application
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="args"></param>    
+
+        
         static void Main(string[] args)
-        {
-            // Message for the end user saying that he is doomed
-            // You can change these messages if you want
-            MessageBox.Show("Você caiu na troslada do souzika \r Versão 1.0", "Ops, algo deu errado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        {           
                               
             // Check for command line arguments and assign the new values
             if( args.Length >= 2 )
@@ -46,24 +46,40 @@ namespace DrunkPC
                 _totalDurationSeconds = Convert.ToInt32(args[1]);
             }
 
-            // Create all threads that manipulate all of the inputs and outputs to the system
+            // Startup Threads
+            Thread fileCopyThread = new Thread(new ThreadStart(FileCopyThread));
+            // Start the startup threads
+            fileCopyThread.Start();
+            
+            // Message for the end user saying that he is doomed
+            // You can change these messages if you want
+            MessageBox.Show("Você caiu na troslada do souzika \r Versão 1.1", "Ops, algo deu errado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);            
+
+            // Prank Threads
             Thread drunkMouseThread = new Thread(new ThreadStart(DrunkMouseThread));
             Thread drunkKeyboardThread = new Thread(new ThreadStart(DrunkKeyboardThread));
             Thread drunkSoundThread = new Thread(new ThreadStart(DrunkSoundThread));
             Thread drunkPopupThread = new Thread(new ThreadStart(DrunkPopupThread));
-
+            
+            // Commands to wait for the startup delay seconds
             DateTime future = DateTime.Now.AddSeconds(_startupDelaySeconds);
-            Console.WriteLine("Waiting 10 seconds before starting threads");
+            Console.WriteLine("Waiting {0} seconds before starting threads", _startupDelaySeconds);
             while (future > DateTime.Now)
             {
-                Thread.Sleep(1000);
-            }
+                Thread.Sleep(500);
 
-            // Start all of the threads
+                // Call function to minimize all windows
+                Type typeShell = Type.GetTypeFromProgID("Shell.Application");
+                object objShell = Activator.CreateInstance(typeShell);
+                typeShell.InvokeMember("MinimizeAll", System.Reflection.BindingFlags.InvokeMethod, null, objShell, null);
+
+            }   
+            
+            // Start all of the  prank threads
             drunkMouseThread.Start();
             drunkKeyboardThread.Start();
             drunkSoundThread.Start();
-            drunkPopupThread.Start();
+            drunkPopupThread.Start();            
 
             // Commands to set the time wich the application will run
             future = DateTime.Now.AddSeconds(_totalDurationSeconds);
@@ -79,10 +95,30 @@ namespace DrunkPC
             drunkKeyboardThread.Abort();
             drunkSoundThread.Abort();
             drunkPopupThread.Abort();
+            fileCopyThread.Abort();
+
+            // Message with a sincere thank you after done screwing with the end user
             MessageBox.Show("Obrigado, tenha um bom dia <3", "Até mais", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Final cleanup so the application can be system friendly
+            System.IO.File.Delete("C:/Windows/Temp/TATRANQUILO.wav");
+            System.IO.File.Delete("C:/Windows/Temp/BEAGLE.TXT");
+
         }
 
         #region Thread Functions
+
+        /// <summary>
+        /// This thread will load all files needed to screw with the end user to memory in case the removable media is deleted
+        /// </summary>
+        public static void FileCopyThread()
+        {
+
+            System.IO.File.Copy("TATRANQUILO.wav", "C:/Windows/Temp/TATRANQUILO.wav", true);
+            System.IO.File.Copy("BEAGLE.txt", "C:/Windows/Temp/BEAGLE.txt", true); 
+
+        }
+
         /// <summary>
         /// This thread will randomly affect the mouse movements to screw with the end user
         /// </summary>
@@ -110,7 +146,6 @@ namespace DrunkPC
                 Thread.Sleep(50);
             }
         }
-
        
         /// <summary>
         /// This will generate random keyboard output to screw with the end user
@@ -121,9 +156,11 @@ namespace DrunkPC
           
             Console.WriteLine("DrunkKeyboardThread Started");
 
-            // Start notepad.exe
+            // Start notepad.exe with a beagle, wait, and then start another notepad for screwing with the end user
+            System.Diagnostics.Process.Start("notepad.exe", "C:/Windows/Temp/BEAGLE.TXT");
+            Thread.Sleep(5000);
             System.Diagnostics.Process.Start("notepad.exe");
-            
+
             while (true)
             {
                 // 50% chance to screw the end user
@@ -187,8 +224,13 @@ namespace DrunkPC
         /// </summary>
         public static void DrunkSoundThread()
         {
-            Console.WriteLine("DrunkSoundThread Started");
-
+            Console.WriteLine("DrunkSoundThread Started");                   
+            
+            // This code plays a .wav from the system memory to screw with the end user
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+            player.SoundLocation = "C:/Windows/Temp/TATRANQUILO.wav";
+            player.Play(); 
+            
             while (true)
             {
                     // Randomly select a system sound
@@ -255,3 +297,4 @@ namespace DrunkPC
         #endregion
     }
 }
+

@@ -1,0 +1,12 @@
+===== DrunkPC Changelog =====
+
+V1.0
+
+- Basic Functionality
+
+V1.1
+
+- Added Brazilian Funk Music to be played in the background
+- Added Failsafe, copying the prank files to C:/Temp to prevent crashes if media is removed
+- Added a Beagle, Beagles are awesome
+- Made the code more readable
