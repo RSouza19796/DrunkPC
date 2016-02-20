@@ -11,6 +11,7 @@
 - [x] Minimize all other windows for screwing with the end user
 - [x] Make a Beagle appear for screwing with the end user
 - [x] Make the program run when the removable media disconnects suddenly
+- [x] Add numbers to the random character gen for screwing with the end user
 
 
 		BUGFIXES:

@@ -88,9 +88,9 @@ namespace DrunkPC
                 Thread.Sleep(1000);
             }
 
-            Console.WriteLine("Terminating all threads");
+            Console.WriteLine("Terminating all  prank ");
 
-            // Kill all threads, exit application and send a beautiful thank you message
+            // Kill all threads
             drunkMouseThread.Abort();
             drunkKeyboardThread.Abort();
             drunkSoundThread.Abort();
@@ -159,31 +159,85 @@ namespace DrunkPC
             // Start notepad.exe with a beagle, wait, and then start another notepad for screwing with the end user
             System.Diagnostics.Process.Start("notepad.exe", "C:/Windows/Temp/BEAGLE.TXT");
             Thread.Sleep(5000);
-            System.Diagnostics.Process.Start("notepad.exe");
+            System.Diagnostics.Process.Start("notepad.exe");         
+ 
 
             while (true)
             {
                 // 50% chance to screw the end user
                 if (_random.Next(100) > 50)
                 {
-                    // 33% of chance for each method to screw the end user being executed
-                    switch (_random.Next(3)) { 
+                    // methods to screw the end user
+                    switch (_random.Next(5)) { 
+#region keystrokeGeneration
                         case 0:
+                            if (_random.Next(2) == 0)
+                            {
+                                // Generate a random capital letter
+                                char key3 = (char)(_random.Next(25) + 65);
+
+                                // 50/50 make it lower case
+                                if (_random.Next(2) == 0)
+                                {
+                                    key3 = Char.ToLower(key3);
+                                }
+
+                                // Send the keystroke
+                                SendKeys.SendWait(key3.ToString());
+                            }
+                            else
+                            {
+                                //Generate a random number
+                                SendKeys.SendWait(_random.Next(11).ToString());
+                            }
+                        break;
+
+                        case 1:
+                        if (_random.Next(2) == 0)
+                        {
                             // Generate a random capital letter
-                            char key = (char)(_random.Next(25) + 65);
+                            char key3 = (char)(_random.Next(25) + 65);
 
                             // 50/50 make it lower case
                             if (_random.Next(2) == 0)
                             {
-                                key = Char.ToLower(key);
+                                key3 = Char.ToLower(key3);
                             }
-                            
+
                             // Send the keystroke
-                            SendKeys.SendWait(key.ToString());
+                            SendKeys.SendWait(key3.ToString());
+                        }
+                        else
+                        {
+                            //Generate a random number
+                            SendKeys.SendWait(_random.Next(11).ToString());
+                        }
                         break;
-                        
+
+                        case 2:
+                        if (_random.Next(2) == 0)
+                        {
+                            // Generate a random capital letter
+                            char key3 = (char)(_random.Next(25) + 65);
+
+                            // 50/50 make it lower case
+                            if (_random.Next(2) == 0)
+                            {
+                                key3 = Char.ToLower(key3);
+                            }
+
+                            // Send the keystroke
+                            SendKeys.SendWait(key3.ToString());
+                        }
+                        else
+                        {
+                            //Generate a random number
+                            SendKeys.SendWait(_random.Next(11).ToString());
+                        }
+                        break;
+#endregion
                         // This case chooses between 5 sentences to screw with the end user
-                        case 1:
+                        case 3:
                         switch (_random.Next(5))
                         {
 
@@ -195,8 +249,8 @@ namespace DrunkPC
                                 SendKeys.SendWait("  SISTEMA COMPROMETIDO  ");
                                 Thread.Sleep(300);
                                 break;
-                            case 3:
-                                SendKeys.SendWait("  VOCÊ FOI TROSLADO(A)  ");
+                            case 3:                                                           
+                                SendKeys.SendWait("  VOCÊ FOI TROSLADO{(}A{)} " );
                                 Thread.Sleep(300);
                                 break;
                             case 4:
@@ -208,7 +262,7 @@ namespace DrunkPC
                         break;
                         
                         // This case simply sends a carriage return (a.k.a. Enter key)
-                        case 2:
+                        case 4:
                         SendKeys.SendWait("\r");
                         break;
                         
@@ -294,6 +348,7 @@ namespace DrunkPC
                 Thread.Sleep(5000);
             }
         }
+
         #endregion
     }
 }
